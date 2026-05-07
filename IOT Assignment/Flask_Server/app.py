@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# Global State - Renamed 'temperature' to 'light' for clarity 
+# Global State
 system_state = {
-    "light": 0.0,
+    "light": 0.00,
     "pattern": "blink",
     "history": [] # For live graph extra credit 
 }
@@ -19,7 +19,7 @@ def handle_data():
     if request.method == 'POST':
         data = request.json
         # Look for the 'light' key sent by the ESP32 
-        system_state["light"] = round(data.get("light", 0), 2)
+        system_state["light"] = f"{float(data.get('light', 0)):.2f}"
         
         # Keep history to 20 data points for the live graph enhancement 
         system_state["history"].append(system_state["light"])
