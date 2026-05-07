@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESP32 Light Dashboard</title>
     <style>
-        /* Responsive design for extra credit  */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
@@ -24,7 +23,6 @@
 
         #controls { margin-bottom: 40px; }
         
-        /* Interactive buttons for pattern control  */
         button { 
             padding: 12px 24px; 
             margin: 8px; 
@@ -41,7 +39,6 @@
             background-color: #ab0000; 
         }
 
-        /* Card container for the live graph  */
         .card { 
             border: 1px solid #444; 
             padding: 20px; 
@@ -74,7 +71,6 @@
     </div>
 
     <script>
-        // Chart.js Setup for Light Intensity 
         const ctx = document.getElementById('lightChart').getContext('2d');
         const lightChart = new Chart(ctx, {
             type: 'line',

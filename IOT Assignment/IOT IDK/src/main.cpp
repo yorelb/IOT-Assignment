@@ -2,7 +2,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-// ==================== CONFIGURATION ====================
+// CONFIG
 const char* ssid = "Michael";
 const char* password = "messinagoat";
 const String serverBaseUrl = "http://172.20.10.4:5002";
@@ -12,11 +12,12 @@ const String serverUrl = serverBaseUrl + "/api";
 #define LIGHT_PIN 9
 #define ADC_MAX 4095.0
 unsigned long lastSensorUpdate = 0;
-const long sensorInterval = 3000;   // 3 seconds
+// 3 seconds interval
+const long sensorInterval = 3000;  
 
 // LEDs
 #define NUM_LEDS 3
-const int ledPins[NUM_LEDS] = {6, 10, 12};  // Red, Yellow, Green
+const int ledPins[NUM_LEDS] = {6, 10, 12};  // Red, Yellow, and Green
 
 // Pattern system
 String currentPattern = "blink";
@@ -24,7 +25,6 @@ unsigned long lastPatternStep = 0;
 int patternStep = 0;
 const long patternTick = 150;   // ms per animation step
 
-// ======================================================
 
 float readLightLevel() {
   int totalADC = 0;
@@ -41,7 +41,7 @@ float readLightLevel() {
   return lightPercentage;
 }
 
-// ==================== LED HELPERS ====================
+// led helpers 
 void setAllLEDs(bool state) {
   for (int i = 0; i < NUM_LEDS; i++) {
     digitalWrite(ledPins[i], state ? HIGH : LOW);
@@ -85,7 +85,7 @@ void updateLEDPattern() {
   }
 }
 
-// ==================== SETUP ====================
+// set up stuff
 void setup() {
   Serial.begin(115200);
 
@@ -109,21 +109,21 @@ void setup() {
   Serial.println("\nWi-Fi connected!");
 }
 
-// ==================== LOOP ====================
+
 void loop() {
   unsigned long now = millis();
 
-  // === Sensor + Flask communication every 3 seconds ===
+  // Sensor & Flask communication every 3 secs
   if (now - lastSensorUpdate >= sensorInterval) {
     if (WiFi.status() == WL_CONNECTED) {
       
       
       Serial.println("\n========================================");
-      Serial.print("📍 ESP32 IP Address: ");
+      Serial.print("ESP32 IP Address: ");
       Serial.println(WiFi.localIP());
-      Serial.print("🌐 Open browser at: ");
+      Serial.print("Open browser at: ");
       Serial.println(serverBaseUrl);
-      Serial.println("Ready - Sensor + LED patterns active");
+      Serial.println("Ready - Sensor + LED patterns active.");
       Serial.println("========================================");
 
       float lightLevel = readLightLevel();
@@ -154,7 +154,7 @@ void loop() {
     lastSensorUpdate = now;
   }
 
-  // Run LED animation continuously
+  // Run led animation continuously
   updateLEDPattern();
 
   delay(10);
